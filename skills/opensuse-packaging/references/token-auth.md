@@ -17,8 +17,12 @@ stay aligned.
   (`rebuild`, `release`, `service`, `workflow`): those are single-operation
   trigger tokens, not a login replacement, and this document does not change
   them.
-- Tokens are created and revoked in the OBS web UI; the client never mints
-  them.
+- Tokens are created in the OBS web UI or with
+  `osc token --create --operation apitoken`; they are revoked in the web UI
+  or with `osc token --delete`.
+- A token minted with `osc` expires 90 days after creation unless
+  `--expires <DATETIME>` overrides it; `--expires never` mints a
+  non-expiring token and warns that this is bad practice.
 
 ## Credential precedence
 
