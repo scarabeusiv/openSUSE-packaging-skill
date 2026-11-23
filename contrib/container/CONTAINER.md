@@ -4,13 +4,13 @@ You run in the openSUSE packaging container. What differs from a workstation:
 
 - **The skill** is at `/etc/opencode/skills/opensuse-packaging`. A path to it in
   older session history (`~/.agents/skills`, `~/.claude/skills`) does not exist here.
-- **No local builds.** There is no sudo, no `osc build`, no podman and no docker.
+- **No local builds.** There is no sudo, no `geectl local-build build`, no podman and no docker.
   Builds run on OBS: use the skill's OBS-ONLY build mode
   (`references/update-build.md` "Build modes"), and for a Leap pool tree
   `target-gate.sh --remote`, never `--build`. `gate.sh` says "%prep not run: no
   sandbox" here every time: the OBS build is what proves `%prep`.
 - **"Permission denied: shell" refuses one command, not the shell.** The command's
-  text named a login file or directory (osc, tea, gh, the SSH key, the Bugzilla
+  text named a login file or directory (geectl, tea, gh, the SSH key, the Bugzilla
   key), a process environment under `/proc`, the server password, `sudo`, or an
   opencode server subcommand. Say it without that text and go on.
 - **Write files with the write tool, not a shell heredoc.** A heredoc's text is
