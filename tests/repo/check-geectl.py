@@ -29,19 +29,21 @@ leaf):
   * the known wrong forms are not recommended outside geectl-usage.md's
     "Wrong forms" section.
 
-Target state: leaves and flags geectl does not have yet are listed in
-tests/repo/geectl-target-state.json with the blocking geectl issue or PR
-and the exact shape the skill needs. A citation of one of those is checked
-against the manifest instead of the binary — and the manifest row goes
-stale (a finding) the moment the binary gains the leaf or flag, so the
-row is removed and the citations re-verified live. A row may also carry
-"positionals": the leaf's positional names in order. A
-"positional-overrides" row records a leaf whose positionals changed since
-the binary: the row's required/optional lists are the target state, and
-the row goes stale the moment the binary's Usage line matches them. A
-"global-flags" row records a global option geectl does not have yet: it
-is accepted in any call and in prose, and goes stale the moment the
-binary's top-level `--help` lists it.
+Target state: when the skill cites a leaf or flag geectl does not have
+yet, the row lives in tests/repo/geectl-target-state.json with the
+blocking geectl issue or PR and the exact shape the skill needs. A
+citation of one of those is checked against the manifest instead of the
+binary — and the manifest row goes stale (a finding) the moment the
+binary gains the leaf or flag, so the row is removed and the citations
+re-verified live. A row may also carry "positionals": the positional
+names of a leaf, in order. A "positional-overrides" row records a leaf
+whose positionals changed since the binary: the required/optional
+lists are the target state, and the row goes stale the moment the
+Usage line of the binary matches them. A "global-flags" row records a
+global option geectl does not have yet: it is accepted in any call and
+in prose, and goes stale the moment the top-level `--help` of the
+binary lists it. No such rows exist right now: the file is absent and
+the checker reads it as empty.
 
   python3 tests/repo/check-geectl.py [--geectl PATH] [--skill NAME]
 
