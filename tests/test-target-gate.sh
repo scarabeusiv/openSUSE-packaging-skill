@@ -847,7 +847,12 @@ sed -i 's/openSUSE:Backports:SLE-16.0/openSUSE:Leap:16.0/' "$PRJMETA"
 case_ remote-prj-path-repaired 3 "set up $GPRJ (leap-16.0, leap-16.1)" "bash $TG $C --remote"
 sed -i 's#<arch>s390x</arch>##g' "$PRJMETA"
 case_ remote-prj-arch-repaired 3 "set up $GPRJ (leap-16.0, leap-16.1)" "bash $TG $C --remote"
+# The package-meta JSON carries no build flags, so removing the disable
+# flag alone is invisible to pkgmeta (it reads scmsync only). Drift the
+# scmsync too, so the repair triggers; the rewrite restores the flag.
+# Flag-drift detection on its own awaits build flags in geectl PackageMeta.
 sed -i 's#<build><disable repository="leap-16.1" /></build>##' "$PKGMETA"
+sed -i 's#<scmsync>[^<]*</scmsync>#<scmsync>https://example.invalid/drifted</scmsync>#' "$PKGMETA"
 case_ remote-pkg-flags-repaired 3 "pointed $GPRJ/foo at $BR#${H:0:12}" "bash $TG $C --remote"
 case_ remote-commit-mismatch 3 "OBS synced 0123456789ab, HEAD is $H" \
   "FAKE_OBSINFO_COMMIT=0123456789ab bash $TG $C --remote"
